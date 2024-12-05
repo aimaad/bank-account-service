@@ -1,0 +1,48 @@
+type Query {
+    listAccounts : [BankAccount]
+    accountById(id : String ) : BankAccount
+    searchByType(typeAccount:AccountType):[BankAccount]
+    findByBalanceLessThan(balance: Float):[BankAccount]
+
+
+}
+type Mutation{
+    addAccount(bankAccountRequestDto : BankAccountRequestDto) : BankAccountResponseDto
+    updateAccount(id:String, bankAccountRequestDto : BankAccountRequestDto) : BankAccountResponseDto
+    deleteAccount(id:String):Boolean
+
+}
+enum AccountType
+{
+    CURRENT_ACCOUNT,
+    SAVING_ACCOUNT
+}
+
+type BankAccount {
+    id: String,
+    type:String,
+    balance :Float,
+    currency : String,
+    createdAt : String,
+    customer : Customer
+
+}
+type Customer {
+    id:ID,
+    name:String
+    accounts:[BankAccount]
+}
+input BankAccountRequestDto {
+    type:String,
+    balance :Float,
+    currency : String,
+
+}
+type BankAccountResponseDto {
+    id: String,
+    type:String,
+    balance :Float,
+    currency : String,
+    createdAt : String
+
+}
